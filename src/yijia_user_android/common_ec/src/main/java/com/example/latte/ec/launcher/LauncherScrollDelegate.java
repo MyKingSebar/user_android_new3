@@ -30,8 +30,6 @@ public class LauncherScrollDelegate extends LatteDelegate implements OnItemClick
         INTEGERS.add(R.mipmap.launcher_01);
         INTEGERS.add(R.mipmap.launcher_02);
         INTEGERS.add(R.mipmap.launcher_03);
-        INTEGERS.add(R.mipmap.launcher_04);
-        INTEGERS.add(R.mipmap.launcher_05);
         mConvenientBanner
                 .setPages(new LauncherHolderCreator(), INTEGERS)
 //                .setPages(new CBViewHolderCreator() {

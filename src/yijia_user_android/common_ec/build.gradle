@@ -25,7 +25,7 @@ dependencies {
     //    implementation fileTree(include: ['*.jar'], dir: 'libs')
     api project(':common_ui')
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc2'
-    api files('libs/alipaySdk-20180601.jar')
     //圆形图片
     api 'de.hdodenhof:circleimageview:2.2.0'
+    implementation files('libs/alipaySdk-20180601.jar')
 }

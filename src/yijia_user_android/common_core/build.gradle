@@ -61,6 +61,7 @@ dependencies {
     //    compile 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2'
 
     //    compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
+
     //字体图标
     api 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2'
     api 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
@@ -96,6 +97,7 @@ dependencies {
 
     //JSON依赖
     api 'com.alibaba:fastjson:1.2.54'
+    api 'com.google.code.gson:gson:2.8.5'
 
     //Log
     api 'com.orhanobut:logger:2.2.0'
@@ -155,6 +157,7 @@ dependencies {
 
     //图片剪裁
     api 'com.github.yalantis:ucrop:2.2.2-native'
+
     //二维码扫描
     api 'me.dm7.barcodescanner:zbar:1.9.8'
 

@@ -20,11 +20,11 @@ public class EcBottomDelegate extends BaseBottomDelegate {
     @Override
     public LinkedHashMap<BottomTabBean, BottomItemDelegate> setItems(ItemBuilder builder) {
         final LinkedHashMap<BottomTabBean, BottomItemDelegate> items = new LinkedHashMap<>();
-        items.put(new BottomTabBean("{fa-home}", "主页"), new IndexDelegate());
-        items.put(new BottomTabBean("{fa-sort}", "分类"), new SortDelegate());
-        items.put(new BottomTabBean("{fa-compass}", "发现"), new DiscoverDelegate());
-        items.put(new BottomTabBean("{fa-shopping-cart}", "购物车"), new ShopCartDelegate());
-        items.put(new BottomTabBean("{fa-user}", "我的"), new PersonalDelegate());
+        items.put(new BottomTabBean("{fa-home}", "主页",0,0), new IndexDelegate());
+        items.put(new BottomTabBean("{fa-sort}", "分类",0,0), new SortDelegate());
+        items.put(new BottomTabBean("{fa-compass}", "发现",0,0), new DiscoverDelegate());
+        items.put(new BottomTabBean("{fa-shopping-cart}", "购物车",0,0), new ShopCartDelegate());
+        items.put(new BottomTabBean("{fa-user}", "我的",0,0), new PersonalDelegate());
         return builder.addItems(items).build();
     }
 

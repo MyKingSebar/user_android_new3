@@ -119,7 +119,7 @@ public class SignUpDelegate extends LatteDelegate {
 
     @Override
     public Object setLayout() {
-        return R.layout.delegate_sign_up;
+        return R.layout.delegate_sign_up_yijia;
     }
 
     @Override

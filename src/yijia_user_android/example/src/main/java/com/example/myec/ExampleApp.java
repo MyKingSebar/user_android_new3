@@ -7,6 +7,7 @@ import android.support.multidex.MultiDexApplication;
 import com.example.latte.app.Latte;
 import com.example.latte.ec.database.DatabaseManager;
 import com.example.latte.ec.icon.FontEcModule;
+import com.example.latte.ec.icon.FontYJModule;
 import com.example.latte.net.Interceptors.DebugInterceptor;
 import com.example.latte.net.rx.AddCookieInterceptor;
 import com.example.latte.util.callback.CallbackManager;
@@ -17,6 +18,7 @@ import com.example.myec.event.TestEvent;
 import com.facebook.stetho.Stetho;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.mob.MobSDK;
+import com.yijia.common_yijia.database.YjDatabaseManager;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -29,8 +31,9 @@ public class ExampleApp extends MultiDexApplication {
         Latte.init(this)
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
+                .withIcon(new FontYJModule())
                 .withLoaderDelayed(1000)
-                .withApiHost("http://127.0.0.1/")
+                .withApiHost("http://192.168.1.110:8080/yijia-app-web/")
                 .withInterceptor(new DebugInterceptor("test", R.raw.test))
                 .withWeChatAppId("你的微信AppKey")
                 .withWeChatAppSecret("你的微信AppSecret")
@@ -43,6 +46,7 @@ public class ExampleApp extends MultiDexApplication {
                 .configure();
         initStetho();
         DatabaseManager.getInstance().init(this);
+        YjDatabaseManager.getInstance().init(this);
 
 
         //开启极光推送

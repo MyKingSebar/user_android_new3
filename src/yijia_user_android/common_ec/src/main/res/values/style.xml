@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+
+    <style name="anim_panel_up_from_bottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+    <style name="ui_login_textinputLayout" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/app_text_hint</item>
+        <item name="colorControlActivated">@color/app_text_orange</item>
+    </style>
+
+    <!--浮动标签-->
+    <style name="normalAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/app_text_orange</item>
+        <item name="android:textColorHint">@android:color/holo_blue_bright</item>
+
+        <item name="android:textSize">20sp</item>
+    </style>
+    <!--浮动标签-->
+    <style name="normalAppearance2" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/app_text_orange</item>
+
+
+        <item name="android:textSize">12sp</item>
+    </style>
+    <!--浮动标签-->
+    <style name="hintAppearance" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">@color/app_text_orange</item>
+        <!-- 底部线 默认颜色 -->
+        <item name="colorControlNormal">@color/app_text_hint</item>
+        <!-- 底部线 EditText激活时颜色 -->
+        <item name="colorControlActivated">@color/app_text_orange</item>
+
+    </style>
+</resources>

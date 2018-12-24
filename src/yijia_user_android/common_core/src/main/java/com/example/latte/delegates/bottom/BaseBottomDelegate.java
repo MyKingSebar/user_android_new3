@@ -81,11 +81,25 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
             final IconTextView itemIcon = (IconTextView) item.getChildAt(0);
             final AppCompatTextView itemTitle = (AppCompatTextView) item.getChildAt(1);
             final BottomTabBean bean = TAB_BEANS.get(i);
+
+            final CharSequence mIcon=bean.getIcon();
+            final int mIconId=bean.getIconId();
+            final int mIconcId=bean.getIconclickedid();
             //初始化数据
-            itemIcon.setText(bean.getIcon());
+            if(mIcon!=null){
+                itemIcon.setText(mIcon);
+            }
+            if(mIconId!=0){
+                itemIcon.setBackgroundResource(mIconId);
+            }
             itemTitle.setText(bean.getTitle());
             if (i == mIndexDelegate) {
-                itemIcon.setTextColor(mClickedColor);
+                if(mIcon!=null){
+                    itemIcon.setTextColor(mClickedColor);
+                }
+                if(mIconcId!=0){
+                    itemIcon.setBackgroundResource(mIconcId);
+                }
                 itemTitle.setTextColor(mClickedColor);
             }
 
@@ -100,7 +114,16 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
         for (int i = 0; i < count; i++) {
             final RelativeLayout item = (RelativeLayout) mBottomBar.getChildAt(i);
             final IconTextView itemIcon = (IconTextView) item.getChildAt(0);
-            itemIcon.setTextColor(Color.GRAY);
+
+            final CharSequence mIcon=TAB_BEANS.get(i).getIcon();
+            final int mIconId=TAB_BEANS.get(i).getIconId();
+            if(mIcon!=null){
+                itemIcon.setTextColor(Color.GRAY);
+            }
+            if(mIconId!=0){
+                itemIcon.setBackgroundResource(mIconId);
+            }
+
             final AppCompatTextView itemTitle = (AppCompatTextView) item.getChildAt(1);
             itemTitle.setTextColor(Color.GRAY);
         }
@@ -112,7 +135,17 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
         resetColor();
         final RelativeLayout item = (RelativeLayout) v;
         final IconTextView itemIcon = (IconTextView) item.getChildAt(0);
-        itemIcon.setTextColor(mClickedColor);
+
+        final CharSequence mIcon=TAB_BEANS.get(tag).getIcon();
+        final int mIconcId=TAB_BEANS.get(tag).getIconclickedid();
+        if(mIcon!=null){
+            itemIcon.setTextColor(mClickedColor);
+        }
+        if(mIconcId!=0){
+            itemIcon.setBackgroundResource(mIconcId);
+        }
+
+
         final AppCompatTextView itemTitle = (AppCompatTextView) item.getChildAt(1);
         itemTitle.setTextColor(mClickedColor);
         getSupportDelegate().showHideFragment(ITEM_DELEGATES.get(tag),ITEM_DELEGATES.get(mCurrentDelegate));

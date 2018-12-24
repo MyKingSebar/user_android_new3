@@ -10,9 +10,11 @@ import com.example.latte.app.Latte;
 import com.example.latte.delegates.LatteDelegate;
 import com.example.latte.ec.launcher.LauncherDelegate;
 import com.example.latte.ec.main.EcBottomDelegate;
-import com.example.latte.ec.sign.ISignListener;
 import com.example.latte.ui.launcher.ILauncherListener;
 import com.example.latte.ui.launcher.OnLauncherFinishTag;
+import com.yijia.common_yijia.sign.ISignListener;
+import com.yijia.common_yijia.sign.SignInDelegate;
+import com.yijia.common_yijia.sign.YjBottomDelegate;
 
 import qiu.niorgai.StatusBarCompat;
 
@@ -35,6 +37,8 @@ public class ExampleActivity extends ProxyActivity implements
     @Override
     public LatteDelegate setRootDelegate() {
 //        return new ExampleDelegate();
+//        return new SignInDelegate();
+//        return new YjBottomDelegate();
         return new LauncherDelegate();
 //        return new SignUpDelegate();
 //        return new LauncherScrollDelegate();
@@ -43,12 +47,25 @@ public class ExampleActivity extends ProxyActivity implements
     @Override
     public void onSignInSuccess() {
         Toast.makeText(this, "登录成功", Toast.LENGTH_LONG).show();
+        getSupportDelegate().startWithPop(new YjBottomDelegate());
+    }
+
+    @Override
+    public void onSignInFailure(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onSignUpSuccess() {
         Toast.makeText(this, "注册成功", Toast.LENGTH_LONG).show();
+        getSupportDelegate().startWithPop(new SignInDelegate());
     }
+
+    @Override
+    public void onSignUpFailure(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+    }
+
 
     @Override
     public void onLauncherFinish(OnLauncherFinishTag tag) {
@@ -56,12 +73,12 @@ public class ExampleActivity extends ProxyActivity implements
         switch (tag) {
             case SIGNED:
                 Toast.makeText(this, "启动成功，用户登录了", Toast.LENGTH_LONG).show();
-                getSupportDelegate().startWithPop(new EcBottomDelegate());
+                getSupportDelegate().startWithPop(new YjBottomDelegate());
                 break;
             case NOT_SIGNED:
                 Toast.makeText(this, "启动成功，用户没登录", Toast.LENGTH_LONG).show();
 //                startWithPop(new SignInDelegate());
-                getSupportDelegate().startWithPop(new EcBottomDelegate());
+                getSupportDelegate().startWithPop(new SignInDelegate());
                 break;
             default:
                 break;
