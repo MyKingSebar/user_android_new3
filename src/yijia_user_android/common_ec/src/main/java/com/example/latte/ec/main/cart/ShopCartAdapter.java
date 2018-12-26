@@ -21,9 +21,6 @@ import com.joanzapata.iconify.widget.IconTextView;
 
 import java.util.List;
 
-/**
- * Created by 傅令杰
- */
 
 public final class ShopCartAdapter extends MultipleRecyclerAdapter {
 

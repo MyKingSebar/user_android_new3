@@ -6,11 +6,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.example.latte.delegates.bottom.BottomItemDelegate;
 import com.example.latte.ec.R;
 import com.example.latte.ec.R2;
@@ -19,15 +23,23 @@ import com.example.latte.ec.main.index.IndexDataConverter;
 import com.example.latte.ec.main.index.IndexItemClickListener;
 import com.example.latte.ec.main.index.search.SearchDelegate;
 import com.example.latte.net.RestCreator;
+import com.example.latte.net.rx.BaseObserver;
 import com.example.latte.net.rx.RxRestClient;
 import com.example.latte.ui.recycler.BaseDecoration;
+import com.example.latte.ui.recycler.MultipleItemEntity;
 import com.example.latte.ui.refresh.RefreshHandler;
 import com.example.latte.util.callback.CallbackManager;
 import com.example.latte.util.callback.CallbackType;
 import com.example.latte.util.callback.IGlobalCallback;
+import com.example.latte.util.log.LatteLogger;
 import com.joanzapata.iconify.widget.IconTextView;
+import com.yijia.common_yijia.database.YjDatabaseManager;
+import com.yijia.common_yijia.database.YjUserProfile;
+import com.yijia.common_yijia.database.YjUserProfileDao;
 import com.yijia.common_yijia.sign.YjBottomDelegate;
+import com.yijia.common_yijia.sign.YjSignHandler;
 
+import java.util.ArrayList;
 import java.util.WeakHashMap;
 
 import butterknife.BindView;
@@ -38,7 +50,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class YjIndexDelegate extends BottomItemDelegate implements View.OnFocusChangeListener {
+public class YjIndexDelegate extends BottomItemDelegate implements View.OnFocusChangeListener, IFriendsItemListener {
 
     @BindView(R2.id.rv_index)
     RecyclerView mRecyclerView = null;
@@ -53,8 +65,10 @@ public class YjIndexDelegate extends BottomItemDelegate implements View.OnFocusC
 
     private RefreshHandler mRefreshHandler = null;
 
+    IndexFriendsAdapter friendsAdapter = null;
+
     @OnClick(R2.id.icon_index_message)
-    void onCLickpublish(){
+    void onCLickpublish() {
 
     }
 
@@ -66,25 +80,70 @@ public class YjIndexDelegate extends BottomItemDelegate implements View.OnFocusC
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+        final String url = "friend/query_friends";
+        String token = YjDatabaseManager.getInstance().getDao().loadAll().get(0).getYjtk();
+        RxRestClient.builder()
+                .url(url)
+                .params("yjtk", token)
+                .build()
+                .post()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<String>(getContext()) {
+                    @Override
+                    public void onResponse(String response) {
+                        LatteLogger.json("USER_FRIENDS", response);
+                        final String status = JSON.parseObject(response).getString("status");
+                        if (TextUtils.equals(status, "1001")) {
+                            getFriendsSucceed(response);
+                        } else {
+                            final String msg = JSON.parseObject(response).getString("msg");
+                            Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        Toast.makeText(getContext(), "请稍后尝试", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+
+
         mRefreshHandler = RefreshHandler.create(mRefreshLayout, mRecyclerView, new IndexDataConverter());
         CallbackManager.getInstance()
                 .addCallback(CallbackType.ON_SCAN, new IGlobalCallback<String>() {
                     @Override
                     public void executeCallback(@Nullable String args) {
-                        Toast.makeText(getContext(),args,Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), args, Toast.LENGTH_LONG).show();
                     }
                 });
 
         onCallRxRestClient();
     }
 
+    private void getFriendsSucceed(String response) {
+        final ArrayList<MultipleItemEntity> data =
+                new YjIndexFriendsDataConverter()
+                        .setJsonData(response)
+                        .convert();
+        friendsAdapter = new IndexFriendsAdapter(data);
+        friendsAdapter.setCartItemListener(this);
+        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        //调整RecyclerView的排列方向
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mFriendsRecyclerView.setLayoutManager(manager);
+        mFriendsRecyclerView.setAdapter(friendsAdapter);
+    }
+
     //TODO 测试方法
-    void onCallRxGet(){
+    void onCallRxGet() {
 
-        final String url="index.php";
-        final WeakHashMap<String,Object> params=new WeakHashMap<>();
+        final String url = "index.php";
+        final WeakHashMap<String, Object> params = new WeakHashMap<>();
 
-        final Observable<String> observable=RestCreator.getRxRestService().get(url,params);
+        final Observable<String> observable = RestCreator.getRxRestService().get(url, params);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
@@ -111,8 +170,8 @@ public class YjIndexDelegate extends BottomItemDelegate implements View.OnFocusC
     }
 
     //TODO测试方法*2
-    private void onCallRxRestClient(){
-        final String url="index.php";
+    private void onCallRxRestClient() {
+        final String url = "index.php";
         RxRestClient.builder()
                 .url(url)
                 .build()
@@ -141,7 +200,6 @@ public class YjIndexDelegate extends BottomItemDelegate implements View.OnFocusC
                     }
                 });
     }
-
 
 
     private void initRefreshLayout() {
@@ -182,6 +240,15 @@ public class YjIndexDelegate extends BottomItemDelegate implements View.OnFocusC
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {
             getParentDelegate().getSupportDelegate().start(new SearchDelegate());
+        }
+    }
+
+    @Override
+    public void onFriendsItemClick(Long id) {
+        if (id == 0) {
+            //TODO 邀请
+        } else {
+            //TODO IM
         }
     }
 }
