@@ -41,6 +41,10 @@ public abstract class BaseObserver<String> implements Observer<String> {
 //            NetWorkSetDialog.showSetNetworkUI(context);
             Toast.makeText(context, "没有可用的网络", Toast.LENGTH_LONG).show();
         }
+        if(e.getMessage()==null){
+            Logger.e("error","e.getMessage()==null");
+            return;
+        }
         if (e.getMessage().contains("404")) {
             Toast.makeText(context, "网络404错误", Toast.LENGTH_LONG).show();
         }

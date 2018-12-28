@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
@@ -17,8 +16,6 @@ import android.widget.Toast;
 import com.example.latte.delegates.LatteDelegate;
 import com.example.latte.ec.R;
 import com.example.latte.ec.R2;
-import com.example.latte.net.RestClient;
-import com.example.latte.net.callback.ISuccess;
 import com.example.latte.net.rx.BaseObserver;
 import com.example.latte.net.rx.RxRestClient;
 import com.example.latte.util.log.LatteLogger;
@@ -33,12 +30,16 @@ import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class SignUpDelegate extends LatteDelegate implements ITimeListener {
+public class ForgetPasswordDelegate extends LatteDelegate implements ITimeListener {
 
     @BindView(R2.id.edit_logup_phone)
     TextInputEditText mPhone = null;
     @BindView(R2.id.edit_logup_note)
     TextInputEditText mNote = null;
+    @BindView(R2.id.edit_forget_password)
+    TextInputEditText mPassword = null;
+//    @BindView(R2.id.edit_forget_password_again)
+//    TextInputEditText mPasswordAgain = null;
     @BindView(R2.id.tv_getnote)
     AppCompatTextView mGetNote = null;
 
@@ -135,7 +136,7 @@ public class SignUpDelegate extends LatteDelegate implements ITimeListener {
                             Toast.makeText(getContext(), "请稍后尝试", Toast.LENGTH_SHORT).show();
                         }
                     });
-            Toast.makeText(getContext(), "验证通过", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "验证通过", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -144,6 +145,8 @@ public class SignUpDelegate extends LatteDelegate implements ITimeListener {
     private boolean checkForm() {
         final String phone = mPhone.getText().toString();
         final String note = mNote.getText().toString();
+        final String password = mPassword.getText().toString();
+//        final String passwordagain = mPasswordAgain.getText().toString();
 
         boolean isPass = true;
 
@@ -163,6 +166,22 @@ public class SignUpDelegate extends LatteDelegate implements ITimeListener {
         } else {
 //            mNoteL.setError(null);
         }
+        if (password.isEmpty()) {
+            Toast.makeText(getContext(), "密码不能为空", Toast.LENGTH_SHORT).show();
+//            mNoteL.setError("验证码不能为空");
+            isPass = false;
+            return false;
+        } else if(password.length()<6){
+            Toast.makeText(getContext(), "密码请大于6位", Toast.LENGTH_SHORT).show();
+        }
+//        if (passwordagain.isEmpty()) {
+//            Toast.makeText(getContext(), "密码不能为空", Toast.LENGTH_SHORT).show();
+////            mNoteL.setError("验证码不能为空");
+//            isPass = false;
+//            return false;
+//        } else if(!TextUtils.equals(password,passwordagain)){
+//            Toast.makeText(getContext(), "密码不一致", Toast.LENGTH_SHORT).show();
+//        }
 
 
         return isPass;
@@ -171,7 +190,7 @@ public class SignUpDelegate extends LatteDelegate implements ITimeListener {
 
     @Override
     public Object setLayout() {
-        return R.layout.delegate_sign_up_yijia;
+        return R.layout.delegate_forget_password_yijia;
     }
 
     @Override

@@ -5,6 +5,7 @@ public enum MultipleFields {
     TITLE,
     TEXT,
     IMAGE_URL,
+    URL,
     BANNERS,
     SPAN_SIZE,
     ID,

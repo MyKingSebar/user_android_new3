@@ -28,4 +28,7 @@ dependencies {
     //圆形图片
     api 'de.hdodenhof:circleimageview:2.2.0'
     implementation files('libs/alipaySdk-20180601.jar')
+
+    //音视频exoplayer
+    implementation 'com.google.android.exoplayer:exoplayer:2.9.3'
 }

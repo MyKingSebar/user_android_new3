@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -21,31 +22,17 @@
 
         >
 
-        <android.support.v7.widget.LinearLayoutCompat
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_link_sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
             android:layout_marginTop="55dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="@color/app_text_orange"
+            android:textSize="18sp" />
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tv_link_sign_in"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="36dp"
-                android:gravity="center"
-                android:text="登录"
-                android:textColor="@color/app_text_orange"
-                android:textSize="18sp" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tv_link_sign_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:gravity="center"
-                android:text="注册"
-                android:textColor="@color/app_text_dark"
-                android:textSize="18sp" />
-        </android.support.v7.widget.LinearLayoutCompat>
 
         <!--电话-->
         <android.support.v7.widget.LinearLayoutCompat
@@ -65,9 +52,9 @@
 
 
             <android.support.design.widget.TextInputLayout
-                android:theme="@style/hintAppearance"
                 android:layout_width="match_parent"
-                android:layout_height="46dp">
+                android:layout_height="46dp"
+                android:theme="@style/hintAppearance">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/edit_login_phone"
@@ -107,9 +94,9 @@
 
 
             <android.support.design.widget.TextInputLayout
-                android:theme="@style/hintAppearance"
                 android:layout_width="match_parent"
-                android:layout_height="46dp">
+                android:layout_height="46dp"
+                android:theme="@style/hintAppearance">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/edit_login_password"
@@ -148,9 +135,10 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="2dp"
                 android:gravity="center_vertical"
-                android:text="短信登录"
+                android:text="验证码登陆"
                 android:textColor="@color/app_text_dark"
-                android:textSize="12sp" />
+                android:textSize="13sp" />
+
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_login_forget"
@@ -160,9 +148,30 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="4dp"
                 android:gravity="center_vertical"
+                android:paddingStart="10dp"
                 android:text="忘记密码"
                 android:textColor="@color/app_text_dark"
                 android:textSize="12sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="13dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tv_login_forget"
+                android:background="@color/app_text_dark"
+                android:gravity="center_vertical" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_link_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tv_login_forget"
+                android:gravity="center_vertical"
+                android:paddingEnd="10dp"
+                android:text="注册"
+                android:textColor="@color/app_text_dark"
+                android:textSize="13sp" />
 
 
         </RelativeLayout>

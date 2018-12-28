@@ -1,4 +1,4 @@
-package com.yijia.common_yijia.main.index;
+package com.yijia.common_yijia.main.index.friends;
 
 
 public interface IFriendsItemListener {

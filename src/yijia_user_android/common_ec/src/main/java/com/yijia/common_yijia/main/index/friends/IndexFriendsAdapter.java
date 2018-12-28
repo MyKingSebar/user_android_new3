@@ -1,16 +1,14 @@
-package com.yijia.common_yijia.main.index;
+package com.yijia.common_yijia.main.index.friends;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.latte.app.Latte;
 import com.example.latte.ec.R;
 import com.example.latte.ui.recycler.MultipleFields;
 import com.example.latte.ui.recycler.MultipleItemEntity;
@@ -25,11 +23,12 @@ public final class IndexFriendsAdapter extends MultipleRecyclerAdapter {
     private IFriendsItemListener mIndexFriendsItemListener = null;
 
     private static final RequestOptions OPTIONS = new RequestOptions()
+            .placeholder(R.color.app_text_gray)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .centerCrop()
             .dontAnimate();
 
-    IndexFriendsAdapter(List<MultipleItemEntity> data) {
+    public IndexFriendsAdapter(List<MultipleItemEntity> data) {
         super(data);
         addItemType(FriendsItemType.INDEX_FRIENDS_ITEM, R.layout.item_main_friends);
     }
