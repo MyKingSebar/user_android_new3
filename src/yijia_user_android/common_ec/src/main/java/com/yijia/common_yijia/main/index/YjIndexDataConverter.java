@@ -56,11 +56,11 @@ public class YjIndexDataConverter extends DataConverter {
                     type=YjIndexItemType.INDEX_TEXT_ITEM;
                     break;
                 case 2:
-                    if(imgs.length>1){
+//                    if(imgs.length>1){
                         type=YjIndexItemType.INDEX_IMAGES_ITEM;
-                    }else {
-                        type=YjIndexItemType.INDEX_IMAGE_ITEM;
-                    }
+//                    }else {
+//                        type=YjIndexItemType.INDEX_IMAGE_ITEM;
+//                    }
                     break;
                 case 3:
                     type=YjIndexItemType.INDEX_VOICE_ITEM;

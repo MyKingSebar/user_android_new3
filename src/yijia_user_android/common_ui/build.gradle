@@ -44,4 +44,7 @@ dependencies {
     api 'com.nineoldandroids:library:2.4.0'
     api 'com.daimajia.easing:library:1.0.1@aar'
     api 'com.daimajia.androidanimations:library:1.1.3@aar'
+    //九宫格
+    api 'com.lzy.widget:ninegridview:0.2.0'
+
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.AppCompatImageView;
@@ -51,6 +52,9 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.lzy.ninegrid.ImageInfo;
+import com.lzy.ninegrid.NineGridView;
+import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 import com.yijia.common_yijia.database.YjDatabaseManager;
 
 import java.util.ArrayList;
@@ -85,6 +89,7 @@ public final class YjIndexAdapter extends MultipleRecyclerAdapter {
         addItemType(YjIndexItemType.INDEX_IMAGE_ITEM, R.layout.item_index_image);
         addItemType(YjIndexItemType.INDEX_VOICE_ITEM, R.layout.item_index_voice);
         addItemType(YjIndexItemType.INDEX_VIDEO_ITEM, R.layout.item_index_video);
+        addItemType(YjIndexItemType.INDEX_IMAGES_ITEM, R.layout.item_index_images);
     }
 
 
@@ -113,7 +118,6 @@ public final class YjIndexAdapter extends MultipleRecyclerAdapter {
         final String voiceUrl = entity.getField(YjIndexMultipleFields.VOICEURL);
         final String videoUrl = entity.getField(YjIndexMultipleFields.VIDEOURL);
 
-
         switch (holder.getItemViewType()) {
             case YjIndexItemType.INDEX_TEXT_ITEM:
 
@@ -130,6 +134,13 @@ public final class YjIndexAdapter extends MultipleRecyclerAdapter {
                         .load(imgs[0])
                         .apply(OPTIONS)
                         .into(tvImage);
+
+                break;
+            case YjIndexItemType.INDEX_IMAGES_ITEM:
+
+                initViewText(holder, circleId, userNickname, content, createdTime, likes, commentList.toJSONString());
+                initImages(holder,imgs,imgs);
+
 
                 break;
             case YjIndexItemType.INDEX_VOICE_ITEM:
@@ -152,6 +163,10 @@ public final class YjIndexAdapter extends MultipleRecyclerAdapter {
         }
     }
 
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+    }
 
     //评论PopupWindow
     private PopupWindow popupWindow;
@@ -298,6 +313,18 @@ public final class YjIndexAdapter extends MultipleRecyclerAdapter {
         });
     }
 
+    private void initImages(MultipleViewHolder holder,String[] imgs,String[] bigImgs){
+        final NineGridView ngImgs = holder.getView(R.id.ng_imgs);
+        ArrayList<ImageInfo> imageInfo = new ArrayList<>();
+        final int imgsSize=imgs.length;
+        for(int i=0;i<imgsSize;i++){
+            ImageInfo info = new ImageInfo();
+            info.setThumbnailUrl(imgs[i]);
+            info.setBigImageUrl(bigImgs[i]);
+            imageInfo.add(info);
+        }
+        ngImgs.setAdapter(new NineGridViewClickAdapter(mContext, imageInfo));
+    }
     private void initMedias(MultipleViewHolder holder,String[] medias){
         final PlayerView playerView = holder.getView(R.id.video_view);
         initializePlayer(playerView, medias);

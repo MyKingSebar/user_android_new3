@@ -77,6 +77,12 @@ public class Configurator {
         return this;
     }
 
+//    public final Configurator withNineGridView(NineGridView.ImageLoader descriptor) {
+//        NineGridView.setImageLoader
+//                NineGridView a=new NineGridView();
+//        return this;
+//    }
+
     public final Configurator withInterceptor(Interceptor interceptor){
         INTERCEPTORS.add(interceptor);
         LATTE_CONFIGS.put(ConfigKeys.INTERCEPTOR,INTERCEPTORS);

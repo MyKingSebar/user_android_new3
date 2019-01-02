@@ -10,6 +10,7 @@ import com.example.latte.ec.icon.FontEcModule;
 import com.example.latte.ec.icon.FontYJModule;
 import com.example.latte.net.Interceptors.DebugInterceptor;
 import com.example.latte.net.rx.AddCookieInterceptor;
+import com.example.latte.ui.ninegridview.GlideImageLoader;
 import com.example.latte.util.callback.CallbackManager;
 import com.example.latte.util.callback.CallbackType;
 import com.example.latte.util.callback.IGlobalCallback;
@@ -17,6 +18,7 @@ import com.example.myec.event.ShareEvent;
 import com.example.myec.event.TestEvent;
 import com.facebook.stetho.Stetho;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import com.lzy.ninegrid.NineGridView;
 import com.mob.MobSDK;
 import com.yijia.common_yijia.database.YjDatabaseManager;
 
@@ -45,6 +47,7 @@ public class ExampleApp extends MultiDexApplication {
                 .withInterceptor(new AddCookieInterceptor())
                 .configure();
         initStetho();
+        initNineGrideView();
         DatabaseManager.getInstance().init(this);
         YjDatabaseManager.getInstance().init(this);
 
@@ -77,6 +80,11 @@ public class ExampleApp extends MultiDexApplication {
                         }
                     }
                 });
+    }
+
+    private void initNineGrideView() {
+        NineGridView.setImageLoader(new GlideImageLoader());
+
     }
 
     private void initStetho() {
