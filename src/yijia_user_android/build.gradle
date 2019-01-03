@@ -3,9 +3,11 @@
 buildscript {
     
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         google()
-        jcenter()
         mavenCentral()
+        maven { url 'https://maven.google.com' }
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
@@ -15,9 +17,11 @@ buildscript {
         // in the individual module build.gradle files
 
         // 注册MobSDK
-        classpath "com.mob.sdk:MobSDK:2018.0319.1724"
+//        classpath "com.mob.sdk:MobSDK:2018.1119.1208"
+//        classpath "com.mob.sdk:MobSDK:2018.0319.1724"
     }
 }
+
 
 
 //subprojects {
@@ -33,11 +37,14 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
-        jcenter()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         maven {
             url "https://jitpack.io"
         }
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
+        google()
+        jcenter()
 
     }
 }

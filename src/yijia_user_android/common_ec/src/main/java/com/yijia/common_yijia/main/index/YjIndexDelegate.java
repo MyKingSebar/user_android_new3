@@ -33,6 +33,8 @@ import com.yijia.common_yijia.database.YjDatabaseManager;
 import com.yijia.common_yijia.main.index.friends.IFriendsItemListener;
 import com.yijia.common_yijia.main.index.friends.IndexFriendsAdapter;
 import com.yijia.common_yijia.main.index.friends.YjIndexFriendsDataConverter;
+import com.yijia.common_yijia.main.index.pictureselector.PhotoFragment;
+import com.yijia.common_yijia.sign.SignUpDelegate;
 import com.yijia.common_yijia.sign.YjBottomDelegate;
 
 import java.util.ArrayList;
@@ -63,7 +65,7 @@ public class YjIndexDelegate extends BottomItemDelegate implements View.OnFocusC
 
     @OnClick(R2.id.icon_index_message)
     void onCLickpublish() {
-
+        getSupportDelegate().start(new PhotoFragment());
     }
 
 

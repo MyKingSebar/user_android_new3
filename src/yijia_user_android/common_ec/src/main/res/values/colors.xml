@@ -10,4 +10,6 @@
     <color name="app_text_gray">#C2C2C2</color>
     <color name="app_text_orange">#FF9535</color>
     <color name="app_text_hint">#BFBFBF</color>
+
+    <color name="color_f6">#f6f6f6</color>
 </resources>

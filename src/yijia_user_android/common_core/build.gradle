@@ -10,10 +10,11 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+
     }
     compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     buildTypes {
         release {
@@ -21,6 +22,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '28.0.3'
 }
 configurations {
 //    all*.exclude group: 'com.google.android', module: 'support-v4'
@@ -155,7 +157,6 @@ dependencies {
     api 'com.github.hotchemi:permissionsdispatcher:2.4.0'
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:2.4.0"
 
-
     //二维码扫描
     api 'me.dm7.barcodescanner:zbar:1.9.8'
 
@@ -164,10 +165,10 @@ dependencies {
     api 'io.reactivex.rxjava2:rxandroid:2.1.0'
     api 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
 
+    //    //图片剪裁
 
-//    //图片剪裁
-//    api 'com.github.yalantis:ucrop:2.2.2-native'
+    //    api 'com.github.yalantis:ucrop:2.2.2-native'
+
     //图片视频选取(包含ucrop)
     api 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
-
 }
