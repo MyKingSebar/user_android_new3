@@ -66,6 +66,17 @@ public final class LattePreference {
         return getAppPreference()
                 .getBoolean(key, false);
     }
+    public static void setAppFlagForInt(String key, int flag) {
+        getAppPreference()
+                .edit()
+                .putInt(key, flag)
+                .apply();
+    }
+
+    public static int getAppFlagForInt(String key) {
+        return getAppPreference()
+                .getInt(key,2);
+    }
 
     public static void addCustomAppProfile(String key, String val) {
         getAppPreference()

@@ -50,7 +50,8 @@ public class PersonalDelegate extends BottomItemDelegate {
     }
 
     private void startOrderListByType() {
-        final OrderListDelegate delegate = new OrderListDelegate();
+        final
+        OrderListDelegate delegate = new OrderListDelegate();
         delegate.setArguments(mArgs);
         getParentDelegate().getSupportDelegate().start(delegate);
     }

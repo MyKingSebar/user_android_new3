@@ -16,17 +16,13 @@ import android.widget.Toast;
 import com.example.latte.delegates.LatteDelegate;
 import com.example.latte.ec.R;
 import com.example.latte.ec.R2;
-import com.example.latte.net.RestClient;
-import com.example.latte.net.callback.ISuccess;
 import com.example.latte.net.rx.BaseObserver;
 import com.example.latte.net.rx.RxRestClient;
 import com.example.latte.util.log.LatteLogger;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class SignInDelegate extends LatteDelegate {
@@ -90,7 +86,7 @@ public class SignInDelegate extends LatteDelegate {
     @OnClick(R2.id.btn_sign_in)
     void onClickSignIn() {
         if (checkForm()) {
-
+            LatteLogger.json("user/login", mPassword.getText().toString());
             final String url = "user/login";
             RxRestClient.builder()
                     .url(url)
@@ -104,7 +100,7 @@ public class SignInDelegate extends LatteDelegate {
                     .subscribe(new BaseObserver<String>(getContext()) {
                         @Override
                         public void onResponse(String response) {
-                            LatteLogger.json("USER_PROFILE", response);
+                            LatteLogger.json("user/login", response);
                             YjSignHandler.onSignIn(response, mISignListener);
                         }
 

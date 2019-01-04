@@ -12,7 +12,6 @@ import com.example.latte.app.IUserChecker;
 import com.example.latte.delegates.LatteDelegate;
 import com.example.latte.ec.R;
 import com.example.latte.ui.launcher.ILauncherListener;
-import com.example.latte.ui.launcher.LauncherHolder;
 import com.example.latte.ui.launcher.LauncherHolderCreator;
 import com.example.latte.ui.launcher.OnLauncherFinishTag;
 import com.example.latte.ui.launcher.ScrollLaunchTag;

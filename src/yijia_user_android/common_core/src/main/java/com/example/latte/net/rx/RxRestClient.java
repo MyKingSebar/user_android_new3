@@ -4,17 +4,12 @@ import android.content.Context;
 
 import com.example.latte.net.HttpMethod;
 import com.example.latte.net.RestCreator;
-import com.example.latte.net.RestService;
-import com.example.latte.net.callback.IError;
-import com.example.latte.net.callback.IFailure;
-import com.example.latte.net.callback.IRequest;
-import com.example.latte.net.callback.ISuccess;
-import com.example.latte.net.callback.RequestCallbacks;
-import com.example.latte.net.download.DownloadHandler;
 import com.example.latte.ui.loader.LatteLoader;
 import com.example.latte.ui.loader.LoaderStyle;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -23,9 +18,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.http.Url;
 
 public class RxRestClient {
 
@@ -34,6 +26,7 @@ public class RxRestClient {
     private final RequestBody BODY;
     private final LoaderStyle LOADER_STYLE;
     private final File FILE;
+    private final File[] FILES;
     private final Context CONTEXT;
 
 
@@ -41,12 +34,14 @@ public class RxRestClient {
                       Map<String, Object> params,
                       RequestBody body,
                       File file,
+                      File[] files,
                       Context context,
                       LoaderStyle loaderStyle) {
         this.URL = url;
         PARAMS.putAll(params);
         this.BODY = body;
         this.FILE = file;
+        this.FILES = files;
         this.CONTEXT = context;
         this.LOADER_STYLE = loaderStyle;
     }
@@ -91,6 +86,18 @@ public class RxRestClient {
                         MultipartBody.Part.createFormData("file", FILE.getName());
                 observable = RestCreator.getRxRestService().upload(URL, body);
                 break;
+            case UPLOADWITHPARAM:
+                List<MultipartBody.Part> parts = new ArrayList<>(FILES.length);
+                for(File file : FILES){
+                    RequestBody requestBody2 =
+                            RequestBody.create(MediaType.parse(MultipartBody.FORM.toString()), file);
+                    MultipartBody.Part body2 =
+                            MultipartBody.Part.createFormData("files", file.getName(),requestBody2);
+                    parts.add(body2);
+                }
+
+                observable = RestCreator.getRxRestService().uploadwithParam(URL, PARAMS,parts);
+                break;
             default:
                 break;
 
@@ -132,6 +139,9 @@ public class RxRestClient {
 
     public final Observable<String> upload() {
         return request(HttpMethod.UPLOAD);
+    }
+    public final Observable<String> uploadwithparams() {
+        return request(HttpMethod.UPLOADWITHPARAM);
     }
 
     public final Observable<ResponseBody> download() {

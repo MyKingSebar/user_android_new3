@@ -13,6 +13,7 @@ import android.view.View;
 import com.example.latte.delegates.LatteDelegate;
 import com.example.latte.ec.R;
 import com.example.latte.ec.R2;
+import com.example.latte.ec.main.personal.PersonalDelegate;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -91,7 +92,7 @@ public class PhotoFragment extends LatteDelegate {
      * 视频：PictureMimeType.ofVideo();
      * 音频：PictureMimeType.ofAudio();
      */
-    public int ALLMODE = 0;
+    private final int ALLMODE = 0;
     private final int IMAGEMODE = 1;
     private final int VIDEOMODE = 2;
     private final int AUDIOMODE = 3;
@@ -253,5 +254,10 @@ public class PhotoFragment extends LatteDelegate {
         }
     }
 
-
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        final Bundle args = getArguments();
+        chooseMode = args.getInt(PersonalDelegate.ORDER_TYPE);
+    }
 }

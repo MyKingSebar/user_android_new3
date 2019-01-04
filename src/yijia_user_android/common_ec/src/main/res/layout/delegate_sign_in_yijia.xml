@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <!--<android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/white">
 
 
-    </android.support.v7.widget.Toolbar>
+    </android.support.v7.widget.Toolbar>-->
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="36dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="75dp"
             android:gravity="center"
             android:text="登录"
             android:textColor="@color/app_text_orange"
@@ -135,7 +135,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="2dp"
                 android:gravity="center_vertical"
-                android:text="验证码登陆"
+                android:text="短信登陆"
                 android:textColor="@color/app_text_dark"
                 android:textSize="13sp" />
 

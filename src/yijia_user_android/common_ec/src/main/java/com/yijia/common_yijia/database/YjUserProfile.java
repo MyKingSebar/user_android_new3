@@ -1,10 +1,8 @@
 package com.yijia.common_yijia.database;
 
-import com.alibaba.fastjson.JSONObject;
-
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
 
 @Entity(nameInDb = "yj_user_profile")
 public class YjUserProfile {
@@ -17,35 +15,28 @@ public class YjUserProfile {
     String realName = null;
     String phone = null;
     String cardNo = null;
-    String cardImage = null;
-    String gender = null;
+    int gender = 0;
     String birthday = null;
     int userStatus = 0;
     int isComplete = 0;
     int isCertification = 0;
-    int inviterId = 0;
-    String createdTime = null;
-    String modifiedTime = null;
-    @Generated(hash = 1218374160)
+    String imagePath=null;
+    @Generated(hash = 923891639)
     public YjUserProfile(Long id, String yjtk, String nickname, String realName,
-            String phone, String cardNo, String cardImage, String gender,
-            String birthday, int userStatus, int isComplete, int isCertification,
-            int inviterId, String createdTime, String modifiedTime) {
+            String phone, String cardNo, int gender, String birthday,
+            int userStatus, int isComplete, int isCertification, String imagePath) {
         this.id = id;
         this.yjtk = yjtk;
         this.nickname = nickname;
         this.realName = realName;
         this.phone = phone;
         this.cardNo = cardNo;
-        this.cardImage = cardImage;
         this.gender = gender;
         this.birthday = birthday;
         this.userStatus = userStatus;
         this.isComplete = isComplete;
         this.isCertification = isCertification;
-        this.inviterId = inviterId;
-        this.createdTime = createdTime;
-        this.modifiedTime = modifiedTime;
+        this.imagePath = imagePath;
     }
     @Generated(hash = 900997910)
     public YjUserProfile() {
@@ -86,16 +77,10 @@ public class YjUserProfile {
     public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
     }
-    public String getCardImage() {
-        return this.cardImage;
-    }
-    public void setCardImage(String cardImage) {
-        this.cardImage = cardImage;
-    }
-    public String getGender() {
+    public int getGender() {
         return this.gender;
     }
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
     public String getBirthday() {
@@ -122,24 +107,13 @@ public class YjUserProfile {
     public void setIsCertification(int isCertification) {
         this.isCertification = isCertification;
     }
-    public int getInviterId() {
-        return this.inviterId;
+    public String getImagePath() {
+        return this.imagePath;
     }
-    public void setInviterId(int inviterId) {
-        this.inviterId = inviterId;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
-    public String getCreatedTime() {
-        return this.createdTime;
-    }
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
-    }
-    public String getModifiedTime() {
-        return this.modifiedTime;
-    }
-    public void setModifiedTime(String modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
+
 
 
     

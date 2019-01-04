@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"
                     android:gravity="center"
-                    android:text="验证码登录"
+                    android:text="短信登录"
                     android:textColor="@color/app_text_orange"
                     android:textSize="18sp" />
             </android.support.v7.widget.LinearLayoutCompat>

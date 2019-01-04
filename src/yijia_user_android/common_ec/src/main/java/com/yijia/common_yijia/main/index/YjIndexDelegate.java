@@ -2,9 +2,7 @@ package com.yijia.common_yijia.main.index;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -17,11 +15,9 @@ import com.example.latte.delegates.bottom.BottomItemDelegate;
 import com.example.latte.ec.R;
 import com.example.latte.ec.R2;
 import com.example.latte.ec.main.index.IndexDataConverter;
-import com.example.latte.ec.main.index.IndexItemClickListener;
 import com.example.latte.ec.main.index.search.SearchDelegate;
 import com.example.latte.net.rx.BaseObserver;
 import com.example.latte.net.rx.RxRestClient;
-import com.example.latte.ui.recycler.BaseDecoration;
 import com.example.latte.ui.recycler.MultipleItemEntity;
 import com.example.latte.ui.refresh.RefreshHandler;
 import com.example.latte.util.callback.CallbackManager;
@@ -34,8 +30,6 @@ import com.yijia.common_yijia.main.index.friends.IFriendsItemListener;
 import com.yijia.common_yijia.main.index.friends.IndexFriendsAdapter;
 import com.yijia.common_yijia.main.index.friends.YjIndexFriendsDataConverter;
 import com.yijia.common_yijia.main.index.pictureselector.PhotoFragment;
-import com.yijia.common_yijia.sign.SignUpDelegate;
-import com.yijia.common_yijia.sign.YjBottomDelegate;
 
 import java.util.ArrayList;
 
@@ -45,6 +39,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class YjIndexDelegate extends BottomItemDelegate implements View.OnFocusChangeListener, IFriendsItemListener, IIndexItemListener {
+
+    private final int ALLMODE = 0;
+    private final int IMAGEMODE = 1;
+    private final int VIDEOMODE = 2;
+    private final int AUDIOMODE = 3;
+
 
     @BindView(R2.id.rv_index)
     RecyclerView mRecyclerView = null;

@@ -1,5 +1,6 @@
 package com.example.latte.net.rx;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -49,5 +50,9 @@ public interface RxRestService {
     @Multipart
     @POST
     Observable<String> upload(@Url String url, @Part MultipartBody.Part file);
+
+    @Multipart
+    @POST
+    Observable<String> uploadwithParam(@Url String url, @QueryMap Map<String, Object> params ,@Part List<MultipartBody.Part> files);
 
 }
