@@ -13,11 +13,11 @@ import android.view.View;
 import com.example.latte.delegates.LatteDelegate;
 import com.example.latte.ec.R;
 import com.example.latte.ec.R2;
-import com.example.latte.ec.main.personal.PersonalDelegate;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.yijia.common_yijia.main.index.YjIndexDelegate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class PhotoFragment extends LatteDelegate {
     }
 
     //最大张数
-    private final int MAXSELECTNUM = 9;
+    private  int maxselectnum = 9;
     //样式
     private final int THEMEID = R.style.picture_default_style;//R.style.picture_default_style,R.style.picture_white_style,R.style.picture_QQ_style,R.style.picture_Sina_style
     //是否开启点击声音
@@ -124,22 +124,26 @@ public class PhotoFragment extends LatteDelegate {
 
     private void init() {
 
-//        switch (chooseMode){
-//            case ALLMODE:
-//                isGif=false;
-//                break;
-//            case IMAGEMODE:
-//                previewVideo=false;
-//                break;
-//            case VIDEOMODE:
-//                previewImg=false;
-//                isGif=false;
-//                break;
-//            case AUDIOMODE:
-//                previewAutio=true;
-////                previewImg=true;
-//                break;
-//        }
+        switch (chooseMode){
+            case ALLMODE:
+                isGif=false;
+                break;
+            case IMAGEMODE:
+                previewVideo=false;
+                maxselectnum=9;
+                break;
+            case VIDEOMODE:
+                previewImg=false;
+                isGif=false;
+                maxselectnum=1;
+                break;
+            case AUDIOMODE:
+                previewImg=false;
+                previewAutio=true;
+//                previewImg=true;
+                maxselectnum=1;
+                break;
+        }
         if (isCutCricle) {
             aspect_ratio_x = 1;
             aspect_ratio_y = 1;
@@ -152,7 +156,7 @@ public class PhotoFragment extends LatteDelegate {
         recyclerView.setLayoutManager(manager);
         adapter = new GridImageAdapter(getActivity(), onAddPicClickListener);
         adapter.setList(selectList);
-        adapter.setSelectMax(MAXSELECTNUM);
+        adapter.setSelectMax(maxselectnum);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
             @Override
@@ -187,7 +191,7 @@ public class PhotoFragment extends LatteDelegate {
                 PictureSelector.create(PhotoFragment.this)
                         .openGallery(chooseMode)
                         .theme(THEMEID)
-                        .maxSelectNum(MAXSELECTNUM)
+                        .maxSelectNum(maxselectnum)
                         .minSelectNum(1)
                         .selectionMode(numMode)
                         .previewImage(previewImg)
@@ -213,7 +217,7 @@ public class PhotoFragment extends LatteDelegate {
                 PictureSelector.create(PhotoFragment.this)
                         .openCamera(chooseMode)
                         .theme(THEMEID)
-                        .maxSelectNum(MAXSELECTNUM)
+                        .maxSelectNum(maxselectnum)
                         .minSelectNum(1)
                         .selectionMode(numMode)
                         .previewImage(previewImg)
@@ -258,6 +262,6 @@ public class PhotoFragment extends LatteDelegate {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Bundle args = getArguments();
-        chooseMode = args.getInt(PersonalDelegate.ORDER_TYPE);
+        chooseMode = args.getInt(YjIndexDelegate.PICKTYPE);
     }
 }

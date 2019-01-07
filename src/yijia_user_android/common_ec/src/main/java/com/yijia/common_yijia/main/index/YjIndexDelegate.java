@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -44,6 +46,8 @@ public class YjIndexDelegate extends BottomItemDelegate implements View.OnFocusC
     private final int IMAGEMODE = 1;
     private final int VIDEOMODE = 2;
     private final int AUDIOMODE = 3;
+    private Bundle mArgs = null;
+    public static final String PICKTYPE="PICKTYPE";
 
 
     @BindView(R2.id.rv_index)
@@ -56,6 +60,9 @@ public class YjIndexDelegate extends BottomItemDelegate implements View.OnFocusC
     Toolbar mToolbar = null;
     @BindView(R2.id.icon_index_scan)
     IconTextView mIconScan = null;
+    @BindView(R2.id.icon_index_message)
+    IconTextView mSend = null;
+
 
 
     private RefreshHandler mRefreshHandler = null;
@@ -65,7 +72,8 @@ public class YjIndexDelegate extends BottomItemDelegate implements View.OnFocusC
 
     @OnClick(R2.id.icon_index_message)
     void onCLickpublish() {
-        getSupportDelegate().start(new PhotoFragment());
+        mSend.showContextMenu();
+//        getSupportDelegate().start(new PhotoFragment());
     }
 
 
@@ -87,6 +95,49 @@ public class YjIndexDelegate extends BottomItemDelegate implements View.OnFocusC
                     }
                 });
 
+        this.registerForContextMenu(mSend);
+//        mSend.setOnCreateContextMenuListener(this);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mArgs=new Bundle();
+
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(1,IMAGEMODE,1,"图片");
+        menu.add(1,VIDEOMODE,1,"视频");
+        menu.add(1,AUDIOMODE,1,"音频");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        PhotoFragment delegate = new PhotoFragment();
+        switch (item.getItemId()) {
+            case IMAGEMODE:
+                mArgs.putInt(PICKTYPE,IMAGEMODE);
+                delegate.setArguments(mArgs);
+                getParentDelegate().getSupportDelegate().start(delegate);
+                break;
+            case VIDEOMODE:
+                mArgs.putInt(PICKTYPE,VIDEOMODE);
+                delegate.setArguments(mArgs);
+                getParentDelegate().getSupportDelegate().start(delegate);
+                break;
+            case AUDIOMODE:
+                mArgs.putInt(PICKTYPE,AUDIOMODE);
+                delegate.setArguments(mArgs);
+                getParentDelegate().getSupportDelegate().start(delegate);
+                break;
+
+            default:
+                break;
+        }
+        return super.onContextItemSelected(item);
     }
 
     private void getFriendsSucceed(String response) {
